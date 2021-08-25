@@ -1,0 +1,49 @@
+<!-- Include Exclude Filter Configurator -->
+<template>
+
+	<div class="slds-p-right_large">
+
+		<p class="slds-m-vertical_small">
+			In order to not be ignored, values in this field
+			<lightning-combobox label="Condition"
+								variant="label-hidden"
+								name="condition"
+								value={configuration.condition}
+								onchange={trackChange}
+								options={conditionOptions}></lightning-combobox>
+			be any of the following values:
+		</p>
+
+		<lightning-card title="Values">
+
+			<lightning-button label="Add Value" onclick={addValue} slot="actions"></lightning-button>
+
+			<lightning-layout multiple-rows="true">
+				<template for:each={configuration.values} for:item="value" for:index="index">
+
+					<lightning-layout-item size="10" padding="around-small" key={value}>
+						<lightning-input label="Value"
+										 onchange={longDebounceValueUpdated}
+										 onblur={valueUpdatedImmediately}
+										 value={value}
+										 data-index={index}
+										 variant="label-hidden"></lightning-input>
+					</lightning-layout-item>
+
+					<lightning-layout-item size="2" padding="around-small" key={value}>
+						<lightning-button-icon icon-name="utility:close"
+											   alternative-text="Remove this choice"
+											   value={index}
+											   onclick={removeValue}></lightning-button-icon>
+					</lightning-layout-item>
+
+				</template>
+			</lightning-layout>
+
+		</lightning-card>
+
+		<lightning-input class="slds-m-vertical_small" name="ignoreReason" label="Ignore Reason" value={configuration.ignoreReason} onchange={debounceChange}></lightning-input>
+
+	</div>
+
+</template>
