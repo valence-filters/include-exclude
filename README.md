@@ -12,6 +12,7 @@ This Filter uses a Valence base LWC called <a href="https://github.com/valence-f
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
 </a>
+
 Click this button to install the Filter into your org.
 
 <a href="https://githubsfdeploy.herokuapp.com?owner=valence-filters&repo=include-exclude&ref=main">
