@@ -53,7 +53,7 @@ global with sharing class IncludeExcludeFilter implements valence.SchemaAwareTra
 			if(String.isNotBlank(mapping.configuration)) {
 				try {
 					Configuration config = (Configuration)JSON.deserialize(mapping.configuration, Configuration.class);
-					configsBySourcePath.put(mapping.sourcePath, config);
+					configsBySourcePath.put(mapping.sourceFieldPath, config);
 				}
 				catch(Exception e) {
 					throw new valence.FilterException('Cannot parse IncludeExcludeFilter configuration: ' + mapping.configuration, e);

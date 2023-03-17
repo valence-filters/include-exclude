@@ -10,9 +10,9 @@ private class IncludeExcludeFilterTests {
 		valence.LinkContext context = new valence.LinkContext();
 		context.linkSourceName = 'Alpha';
 		context.mappings = new Map<String, valence.Mapping>{
-			'firstMapping' => valence.ValenceTestUtil.createTestMapping('firstMapping', valence.FieldPath.buildPath('Employer'), valence.FieldPath.buildPath('Company'), null),
-			'secondMapping' => valence.ValenceTestUtil.createTestMapping('secondMapping', valence.FieldPath.buildPath('PersonName'), valence.FieldPath.buildPath('LastName'), null),
-			'thirdMapping' => valence.ValenceTestUtil.createTestMapping('thirdMapping', valence.FieldPath.buildPath('Industry'), valence.FieldPath.buildPath('Sector'), '{"condition":"MUST","values":["Explosives","Space Exploration"],"ignoreReason":"This industry is dangerous."}')
+			'firstMapping' => valence.ValenceTestUtil.createTestMapping('firstMapping', 'Employer', 'Company', null),
+			'secondMapping' => valence.ValenceTestUtil.createTestMapping('secondMapping', 'PersonName', 'LastName', null),
+			'thirdMapping' => valence.ValenceTestUtil.createTestMapping('thirdMapping', 'Industry', 'Sector', '{"condition":"MUST","values":["Explosives","Space Exploration"],"ignoreReason":"This industry is dangerous."}')
 		};
 
 		List<valence.RecordInFlight> records = new List<valence.RecordInFlight>{
@@ -43,9 +43,9 @@ private class IncludeExcludeFilterTests {
 		valence.LinkContext context = new valence.LinkContext();
 		context.linkSourceName = 'Alpha';
 		context.mappings = new Map<String, valence.Mapping>{
-			'firstMapping' => valence.ValenceTestUtil.createTestMapping('firstMapping', valence.FieldPath.buildPath('Employer'), valence.FieldPath.buildPath('Company'), null),
-			'secondMapping' => valence.ValenceTestUtil.createTestMapping('secondMapping', valence.FieldPath.buildPath('PersonName'), valence.FieldPath.buildPath('LastName'), null),
-			'thirdMapping' => valence.ValenceTestUtil.createTestMapping('thirdMapping', valence.FieldPath.buildPath('Industry'), valence.FieldPath.buildPath('Sector'), '{"condition":"MUST NOT","values":["Explosives","Space Exploration"],"ignoreReason":"This industry is dangerous."}')
+			'firstMapping' => valence.ValenceTestUtil.createTestMapping('firstMapping', 'Employer', 'Company', null),
+			'secondMapping' => valence.ValenceTestUtil.createTestMapping('secondMapping', 'PersonName', 'LastName', null),
+			'thirdMapping' => valence.ValenceTestUtil.createTestMapping('thirdMapping', 'Industry', 'Sector', '{"condition":"MUST NOT","values":["Explosives","Space Exploration"],"ignoreReason":"This industry is dangerous."}')
 		};
 
 		List<valence.RecordInFlight> records = new List<valence.RecordInFlight>{
@@ -76,9 +76,9 @@ private class IncludeExcludeFilterTests {
 		valence.LinkContext context = new valence.LinkContext();
 		context.linkSourceName = 'Alpha';
 		context.mappings = new Map<String, valence.Mapping>{
-			'firstMapping' => valence.ValenceTestUtil.createTestMapping('firstMapping', valence.FieldPath.buildPath('Employer'), valence.FieldPath.buildPath('Company'), null),
-			'secondMapping' => valence.ValenceTestUtil.createTestMapping('secondMapping', valence.FieldPath.buildPath('PersonName'), valence.FieldPath.buildPath('LastName'), 'busted'),
-			'thirdMapping' => valence.ValenceTestUtil.createTestMapping('thirdMapping', valence.FieldPath.buildPath('Industry'), valence.FieldPath.buildPath('Sector'), null)
+			'firstMapping' => valence.ValenceTestUtil.createTestMapping('firstMapping', 'Employer', 'Company', null),
+			'secondMapping' => valence.ValenceTestUtil.createTestMapping('secondMapping', 'PersonName', 'LastName', 'busted'),
+			'thirdMapping' => valence.ValenceTestUtil.createTestMapping('thirdMapping', 'Industry', 'Sector', null)
 		};
 
 		List<valence.RecordInFlight> records = new List<valence.RecordInFlight>{
@@ -110,9 +110,9 @@ private class IncludeExcludeFilterTests {
 		valence.LinkContext context = new valence.LinkContext();
 		context.linkSourceName = 'Alpha';
 		context.mappings = new Map<String, valence.Mapping>{
-			'firstMapping' => valence.ValenceTestUtil.createTestMapping('firstMapping', valence.FieldPath.buildPath('Employer'), valence.FieldPath.buildPath('Company'), null),
-			'secondMapping' => valence.ValenceTestUtil.createTestMapping('secondMapping', valence.FieldPath.buildPath('PersonName'), valence.FieldPath.buildPath('LastName'), null),
-			'thirdMapping' => valence.ValenceTestUtil.createTestMapping('thirdMapping', valence.FieldPath.buildPath('Industry'), valence.FieldPath.buildPath('Sector'), null)
+			'firstMapping' => valence.ValenceTestUtil.createTestMapping('firstMapping', 'Employer', 'Company', null),
+			'secondMapping' => valence.ValenceTestUtil.createTestMapping('secondMapping', 'PersonName', 'LastName', null),
+			'thirdMapping' => valence.ValenceTestUtil.createTestMapping('thirdMapping', 'Industry', 'Sector', null)
 		};
 
 		List<valence.RecordInFlight> records = new List<valence.RecordInFlight>{
@@ -148,9 +148,9 @@ private class IncludeExcludeFilterTests {
 		valence.LinkContext context = new valence.LinkContext();
 		context.linkSourceName = 'Alpha';
 		context.mappings = new Map<String, valence.Mapping>{
-			'firstMapping' => valence.ValenceTestUtil.createTestMapping('firstMapping', valence.FieldPath.buildPath('Employer'), valence.FieldPath.buildPath('Company'), null),
-			'secondMapping' => valence.ValenceTestUtil.createTestMapping('secondMapping', valence.FieldPath.buildPath('PersonName'), valence.FieldPath.buildPath('LastName'), null),
-			'thirdMapping' => valence.ValenceTestUtil.createTestMapping('thirdMapping', valence.FieldPath.buildPath('Industry'), valence.FieldPath.buildPath('Sector'), '{"condition":"MUST NOT","values":["Explosives","Space Exploration"],"ignoreReason":"This industry is dangerous."}')
+			'firstMapping' => valence.ValenceTestUtil.createTestMapping('firstMapping', 'Employer', 'Company', null),
+			'secondMapping' => valence.ValenceTestUtil.createTestMapping('secondMapping', 'PersonName', 'LastName', null),
+			'thirdMapping' => valence.ValenceTestUtil.createTestMapping('thirdMapping', 'Industry', 'Sector', '{"condition":"MUST NOT","values":["Explosives","Space Exploration"],"ignoreReason":"This industry is dangerous."}')
 		};
 
 		new IncludeExcludeFilter().describeSchema(context);
