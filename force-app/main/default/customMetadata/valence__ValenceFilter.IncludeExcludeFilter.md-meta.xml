@@ -3,6 +3,14 @@
     <label>Include Exclude</label>
     <protected>false</protected>
     <values>
+        <field>valence__AfterMappingOnly__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>valence__BeforeMappingOnly__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
         <field>valence__ClassName__c</field>
         <value xsi:type="xsd:string">IncludeExcludeFilter</value>
     </values>

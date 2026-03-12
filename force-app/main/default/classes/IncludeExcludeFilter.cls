@@ -20,6 +20,9 @@ global with sharing class IncludeExcludeFilter implements valence.SchemaAwareTra
 		try {
 			Configuration config = (Configuration)JSON.deserialize(configStr, Configuration.class);
 			String explanation = '<p>In order to not be ignored, values in this field {0} be one of these:</p><ul>{1}</ul>';
+			if('MUST START WITH'.equalsIgnoreCase(config.condition)){
+				explanation = '<p>In order to not be ignored, values in this field {0} one of these:</p><ul>{1}</ul>';
+			}
 
 			String values = '';
 			for(String value : config.values) {
@@ -81,6 +84,18 @@ global with sharing class IncludeExcludeFilter implements valence.SchemaAwareTra
 					}
 					else if('MUST NOT'.equalsIgnoreCase(config.condition)) {
 						if(config.values.contains(value)) {
+							record.ignore(config.ignoreReason);
+						}
+					}
+					else if('MUST START WITH'.equalsIgnoreCase(config.condition)) {
+						Boolean startsWith = false;
+						for(String val : config.values){
+							if(String.isNotBlank(value) && value.startsWith(val)){
+								startsWith = true;
+								break;
+							}
+						}
+						if(!startsWith){
 							record.ignore(config.ignoreReason);
 						}
 					}

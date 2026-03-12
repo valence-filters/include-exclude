@@ -70,6 +70,39 @@ private class IncludeExcludeFilterTests {
 		System.assertEquals(true, records[1].isIgnored());
 	}
 
+	@IsTest static void testMustStartWith() {
+
+		// setup up an artificial Context to use for our test
+		valence.LinkContext context = new valence.LinkContext();
+		context.linkSourceName = 'Alpha';
+		context.mappings = new Map<String, valence.Mapping>{
+			'firstMapping' => valence.ValenceTestUtil.createTestMapping('firstMapping', 'Employer', 'Company', null),
+			'secondMapping' => valence.ValenceTestUtil.createTestMapping('secondMapping', 'PersonName', 'LastName', null),
+			'thirdMapping' => valence.ValenceTestUtil.createTestMapping('thirdMapping', 'Industry', 'Sector', '{"condition":"MUST START WITH","values":["Expl","Space Explorat"],"ignoreReason":"This industry is dangerous."}')
+		};
+
+		List<valence.RecordInFlight> records = new List<valence.RecordInFlight>{
+			new valence.RecordInFlight(new Map<String, Object>{
+				'Employer' => '12',
+				'PersonName' => 'George',
+				'Industry' => 'Agriculture'
+			}),
+			new valence.RecordInFlight(new Map<String, Object>{
+				'Employer' => '10',
+				'PersonName' => 'Sally',
+				'Industry' => 'Space Exploration'
+			})
+		};
+
+		Test.startTest();
+		new IncludeExcludeFilter().process(context, records);
+		Test.stopTest();
+
+		System.assertEquals(2, records.size());
+		System.assertEquals(true, records[0].isIgnored());
+		System.assertEquals(false, records[1].isIgnored());
+	}
+
 	@IsTest static void testBadConfig() {
 
 		// setup up an artificial Context to use for our test
@@ -172,6 +205,14 @@ private class IncludeExcludeFilterTests {
 		});
 
 		System.assertEquals('<p>In order to not be ignored, values in this field MUST NOT be one of these:</p><ul><li>Explosives</li><li>Space Exploration</li></ul>', filter.explainMappingConfiguration(config));
+
+		config = JSON.serialize(new Map<String, Object> {
+			'condition' => 'MUST START WITH',
+			'values' => new Set<String>{'Explosives','Space Exploration'},
+			'ignoreReason' => 'This industry is dangerous.'
+		});
+
+		System.assertEquals('<p>In order to not be ignored, values in this field MUST START WITH one of these:</p><ul><li>Explosives</li><li>Space Exploration</li></ul>', filter.explainMappingConfiguration(config));
 
 		System.assertEquals('<p class="slds-theme_error">This configuration is malformed.</p>', filter.explainMappingConfiguration('broken'));
 	}
