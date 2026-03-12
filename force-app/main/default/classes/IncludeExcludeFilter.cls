@@ -45,7 +45,7 @@ global with sharing class IncludeExcludeFilter implements valence.SchemaAwareTra
 
 	public void process(valence.LinkContext context, List<valence.RecordInFlight> records) {
 
-		Map<valence.FieldPath, Configuration> configsBySourcePath = new Map<valence.FieldPath, Configuration>();
+		Map<List<String>, Configuration> configsBySourcePath = new Map<List<String>, Configuration>();
 
 		/*
 		 * Assemble any configs that have been set up by admins.
@@ -56,7 +56,7 @@ global with sharing class IncludeExcludeFilter implements valence.SchemaAwareTra
 			if(String.isNotBlank(mapping.configuration)) {
 				try {
 					Configuration config = (Configuration)JSON.deserialize(mapping.configuration, Configuration.class);
-					configsBySourcePath.put(mapping.sourceFieldPath, config);
+					configsBySourcePath.put(mapping.sourcePropertyPath, config);
 				}
 				catch(Exception e) {
 					throw new valence.FilterException('Cannot parse IncludeExcludeFilter configuration: ' + mapping.configuration, e);
@@ -73,9 +73,9 @@ global with sharing class IncludeExcludeFilter implements valence.SchemaAwareTra
 		 * Iterate through our records, ignoring where appropriate.
 		 */
 		for(valence.RecordInFlight record : records) {
-			for(valence.FieldPath sourcePath : configsBySourcePath.keySet()) {
+			for(List<String> sourcePath : configsBySourcePath.keySet()) {
 				Configuration config = configsBySourcePath.get(sourcePath);
-				String value = String.valueOf(record.getOriginalProperty(sourcePath));
+				String value = String.valueOf(record.getOriginalPropertyValue(sourcePath));
 				if(value != null) {
 					if('MUST'.equalsIgnoreCase(config.condition)) {
 						if(!config.values.contains(value)) {
